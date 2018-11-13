@@ -1,0 +1,5 @@
+#!/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/bin/python
+
+from idlelib.PyShell import main
+if __name__ == '__main__':
+    main()

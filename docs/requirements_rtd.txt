@@ -1,0 +1,14 @@
+sphinxcontrib-napoleon==0.2.11
+mock
+pandas
+fcsparser
+numpy
+numexpr
+matplotlib
+scipy
+scikit-learn
+seaborn
+traits
+nbformat
+python-dateutil
+statsmodels

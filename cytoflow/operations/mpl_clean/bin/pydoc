@@ -1,0 +1,5 @@
+#!/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/bin/python
+
+import pydoc
+if __name__ == '__main__':
+    pydoc.cli()

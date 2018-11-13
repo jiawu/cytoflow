@@ -1,0 +1,14 @@
+prefix=/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include/qt
+
+
+Name: Qt5 ScriptTools
+Description: Qt ScriptTools module
+Version: 5.6.0
+Libs: -L${libdir} -lQt5ScriptTools 
+Libs.private: -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5Core -lQt5Widgets -lQt5Gui -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5Script -lQt5Core -framework OpenGL -framework AGL  
+Cflags: -I${includedir}/QtScriptTools -I${includedir}
+Requires: Qt5Core
+

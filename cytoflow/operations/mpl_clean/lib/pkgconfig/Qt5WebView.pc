@@ -1,0 +1,14 @@
+prefix=/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include/qt
+
+
+Name: Qt5 WebView
+Description: Qt WebView module
+Version: 5.6.0
+Libs: -L${libdir} -lQt5WebView 
+Libs.private: -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5WebEngine -lQt5WebEngineCore -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5Quick -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5Gui -lQt5Qml -lQt5Network -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5WebChannel -lQt5Core -framework OpenGL -framework AGL  
+Cflags: -I${includedir}/QtWebView -I${includedir}
+Requires: Qt5Core Qt5Gui Qt5WebEngine Qt5Qml Qt5Quick
+

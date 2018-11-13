@@ -1,0 +1,14 @@
+prefix=/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include/qt
+
+
+Name: Qt5 QuickWidgets
+Description: Qt QuickWidgets module
+Version: 5.6.0
+Libs: -L${libdir} -lQt5QuickWidgets 
+Libs.private: -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5Quick -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5Widgets -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -framework OpenGL -framework AGL  
+Cflags: -I${includedir}/QtQuickWidgets -I${includedir}
+Requires: Qt5Core Qt5Gui Qt5Qml Qt5Quick Qt5Widgets
+

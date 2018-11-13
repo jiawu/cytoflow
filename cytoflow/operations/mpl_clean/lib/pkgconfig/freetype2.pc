@@ -1,0 +1,14 @@
+prefix=/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean
+exec_prefix=/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean
+libdir=/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib
+includedir=/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/include/freetype2
+
+Name: FreeType 2
+URL: http://freetype.org
+Description: A free, high-quality, and portable font engine.
+Version: 17.4.11
+Requires:
+Requires.private: 
+Libs: -L${libdir} -lfreetype
+Libs.private: 
+Cflags: -I${includedir}

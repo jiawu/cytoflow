@@ -1,0 +1,14 @@
+prefix=/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include/qt
+
+
+Name: Qt5 WebEngineWidgets
+Description: Qt WebEngineWidgets module
+Version: 5.6.0
+Libs: -L${libdir} -lQt5WebEngineWidgets 
+Libs.private: -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5WebEngineCore -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5Quick -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5Widgets -lQt5Gui -lQt5Qml -lQt5Network -L/Users/jjw036/cytoflow/cytoflow/operations/mpl_clean/lib -lQt5WebChannel -lQt5Core -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -framework OpenGL -framework AGL  
+Cflags: -I${includedir}/QtWebEngineWidgets -I${includedir}
+Requires: Qt5Core Qt5Gui Qt5WebEngineCore Qt5Widgets Qt5Network Qt5Quick
+

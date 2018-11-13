@@ -1,0 +1,106 @@
+environment:
+
+  global:
+    # SDK v7.0 MSVC Express 2008's SetEnv.cmd script will fail if the
+    # /E:ON and /V:ON options are not enabled in the batch script intepreter
+    # See: http://stackoverflow.com/a/13751649/163740
+    WITH_COMPILER: "cmd /E:ON /V:ON /C .\\packaging\\appveyor\\run_with_compiler.cmd"
+
+  matrix:
+
+    # Pre-installed Python versions, which Appveyor may upgrade to
+    # a later point release.
+
+    - PYTHON: "C:\\Miniconda"
+      PYTHON_VERSION: "2.7.x" # currently 2.7.9
+      PYTHON_ARCH: "32"
+
+    - PYTHON: "C:\\Miniconda-x64"
+      PYTHON_VERSION: "2.7.x" # currently 2.7.9
+      PYTHON_ARCH: "64"
+      WINDOWS_SDK_VERSION: "v7.0"
+
+init:
+  - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
+  - ps: Update-AppveyorBuild -Version "$($env:appveyor_repo_commit.substring(0,7))"
+
+install:
+  - ECHO "Filesystem root:"
+  - ps: "ls \"C:/\""
+
+  - ECHO "Installed SDKs:"
+  - ps: "ls \"C:/Program Files/Microsoft SDKs/Windows\""
+
+  # Prepend newly installed Python to the PATH of this build (this cannot be
+  # done from inside the powershell script as it would require to restart
+  # the parent CMD process).
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+
+  # Check that we have the expected version and architecture for Python
+  - "python --version"
+  - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
+  
+  # install swig
+  - choco install swig --yes --limit-output
+
+  # Install the build and runtime dependencies of the project.
+  - conda install --yes --quiet --file=packaging\conda-requirements.txt
+  - conda install --yes --quiet setuptools==19.2 pip six
+  - pip.exe install pyinstaller nose2
+
+  - "%WITH_COMPILER% python setup.py develop"
+
+build: off
+
+test_script:
+  - "nose2 -c packaging\\nose2.cfg"
+
+after_test:
+  - "%WITH_COMPILER% %PYTHON%/python setup.py bdist_wheel bdist_wininst"
+  - "pyinstaller packaging/pyinstaller.spec"
+  - "move dist\\cytoflow.exe dist\\cytoflow-%PYTHON_ARCH%.exe"
+  - "IF %PYTHON_ARCH% EQU 32 move build\\lib.win32-2.7\\cytoflow\\utility\\logicle_ext\\_Logicle.pyd dist\\_Logicle-32.pyd"
+  - "IF %PYTHON_ARCH% EQU 64 move build\\lib.win-amd64-2.7\\cytoflow\\utility\\logicle_ext\\_Logicle.pyd dist\\_Logicle-64.pyd"
+
+artifacts:
+  - path: dist\*.*
+
+deploy:
+  - provider: GitHub
+    description: 'Cytoflow release'
+    auth_token:
+      secure: VVuhKeMWCRbcFWTVdrIbOuKkgnOqsQnCF3ZXl9SsE5YiCmuuYP1YxmII2ZuAp0lv
+    draft: false
+    prerelease: false
+    force_update: true
+    on:
+      appveyor_repo_tag: true        # deploy on tag push only   
+
+
+  - provider: BinTray
+    username: bpteague
+    api_key:
+      secure: BLgrF3vno40XZMvXZ+DGzxeO8xzQJP1Y/ndUVPEycNlNB2puWDGdPDJ8d4DxDTEj
+    subject: bpteague
+    repo: cytoflow
+    package: cytoflow
+    version: latest
+    publish: true
+    override: true
+    explode: false
+    on:
+        branch: master
+
+  - provider: BinTray
+    username: bpteague
+    api_key:
+      secure: BLgrF3vno40XZMvXZ+DGzxeO8xzQJP1Y/ndUVPEycNlNB2puWDGdPDJ8d4DxDTEj
+    subject: bpteague
+    repo: cytoflow
+    package: cytoflow
+    version: latest
+    publish: true
+    override: true
+    explode: false
+    on:
+        branch: packaging

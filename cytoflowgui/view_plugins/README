@@ -1,0 +1,6 @@
+This is where the "ui adapter" bits go for the various views.  Each view gets
+ - an optional class derived from traitsui.Controller, which wraps the view
+   parameters in traits that are appropriate for the Experiment we're applying
+   the view on (channel names, subset editor, etc.)
+ - a class derived from envisage.Plugin:
+   a Envisage service plugin wrapping the view
